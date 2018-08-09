@@ -1,6 +1,7 @@
 const {app, BrowserWindow, globalShortcut, Menu} = require('electron');
 
 let mainWindow;
+let willQuitApp = false;
 
 app.on('window-all-closed', function() {
   if (process.platform !== 'darwin') {
@@ -33,12 +34,30 @@ app.on('ready', function() {
   globalShortcut.register('MediaNextTrack', skip);
   globalShortcut.register('MediaPlayPause', playPause);
 
-  mainWindow.on('closed', function() {
-    mainWindow = null;
-  });
+  // taken from https://discuss.atom.io/t/how-to-catch-the-event-of-clicking-the-app-windows-close-button-in-electron-app/21425/8
+  // not sure if process.platform is still needed...
+  if (process.platform === 'darwin') {
+    mainWindow.on('close', (e) => {
+      if (willQuitApp) {
+        mainWindow = null;
+      } else {
+        e.preventDefault();
+        mainWindow.hide();
+      }
+    });
+  }
+
+  if (process.platform !== 'darwin') {
+    mainWindow.on('closed', function() {
+      mainWindow = null;
+    });
+  }
 
   addMenu();
 });
+
+app.on('activate', () => mainWindow.show());
+app.on('before-quit', () => willQuitApp = true);
 
 function skip() {
   if (mainWindow == null) {
