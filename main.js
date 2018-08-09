@@ -54,6 +54,12 @@ app.on('ready', function() {
   }
 
   addMenu();
+
+  const dockMenu = Menu.buildFromTemplate([
+    { label: "Toggle Playback", click () { playPause() } }
+  ]);
+
+  app.dock.setMenu(dockMenu);
 });
 
 app.on('activate', () => mainWindow.show());
@@ -108,3 +114,4 @@ function addMenu() {
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 }
+
