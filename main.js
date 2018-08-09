@@ -64,7 +64,7 @@ function addMenu() {
   var menuTemplate = [{
     label: 'Brain.fm',
     submenu: [
-      {label: 'About Application', selector: 'orderFrontStandardAboutPanel:'},
+      {label: 'About Brain.fm', selector: 'orderFrontStandardAboutPanel:'},
       {type:  'separator'},
       {role:  'minimize'},
       {label: 'Hide Brain.fm', role: 'hide'},
