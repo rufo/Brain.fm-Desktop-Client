@@ -14,12 +14,12 @@ app.on('ready', function() {
     width: 1280,
     height: 720,
     title: 'Brain.fm',
-    webSecurity: false,
-    'node-integration': false,
+    nodeIntegration: false,
+    contextIsolation: true
   });
 
   mainWindow.setMenu(null);
-  mainWindow.loadURL('http://www1.brain.fm/app/player');
+  mainWindow.loadURL('https://www1.brain.fm/app/player');
   //mainWindow.webContents.openDevTools();
 
   mainWindow.on('app-command', function(e, cmd) {
